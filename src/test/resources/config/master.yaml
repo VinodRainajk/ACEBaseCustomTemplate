@@ -1,0 +1,7 @@
+application:
+  url: https://jsonplaceholder.typicode.com
+  timeout: 30000
+auth:
+  type: bearer
+  token: ""
+  apiKey: ""

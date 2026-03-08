@@ -66,6 +66,21 @@
             <scope>test</scope>
         </dependency>
         
+        <!-- API testing - required for API step definitions (RestAssured, YAML config) -->
+        <!-- Needed when running API scenarios from IntelliJ Cucumber plugin -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.4.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.2</version>
+            <scope>test</scope>
+        </dependency>
+        
         <!-- NOTE: Database drivers are NOT needed here! -->
         <!-- They are automatically inherited from custom-ace-base-wrapper dependency -->
     </dependencies>
@@ -115,6 +130,9 @@
                                     <includes>
                                         <include>**/*.feature</include>
                                         <include>**/*.properties</include>
+                                        <include>**/*.yaml</include>
+                                        <include>**/*.yml</include>
+                                        <include>**/*.json</include>
                                     </includes>
                                 </resource>
                             </resources>
