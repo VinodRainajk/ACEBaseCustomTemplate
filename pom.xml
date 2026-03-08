@@ -105,6 +105,7 @@
                 <version>3.0.0</version>
                 <configuration>
                     <systemPropertyVariables>
+                        <profile>${profile}</profile>
                         <db.profile>${db.profile}</db.profile>
                     </systemPropertyVariables>
                 </configuration>

@@ -1,0 +1,6 @@
+# config/qa/master.yaml - QA API config
+# Used when: mvn test -Dprofile=qa
+
+application:
+  url: https://qa-api.example.com
+  timeout: 30000

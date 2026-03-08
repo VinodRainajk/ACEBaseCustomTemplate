@@ -1,0 +1,6 @@
+# config/dev/master.yaml - Dev API config
+# Used when: mvn test -Dprofile=dev
+
+application:
+  url: https://jsonplaceholder.typicode.com
+  timeout: 30000

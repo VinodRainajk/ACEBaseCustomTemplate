@@ -89,18 +89,19 @@ mvn clean compile
 
 ## Running Tests
 
-### Run All Tests with Default Profile (MySQL)
+### Run All Tests (Base Config)
 ```bash
 mvn test
 ```
 
-### Run Tests with Specific Database Profile
+### Run Tests with Profile (Option B: Profile as Folder)
 ```bash
-mvn test -Ddb.profile=mysql
-mvn test -Ddb.profile=postgresql
-mvn test -Ddb.profile=sqlserver
-mvn test -Ddb.profile=oracle
+mvn test -Dprofile=dev
+mvn test -Dprofile=qa
+mvn test -Dprofile=staging
 ```
+
+Profile selects config from `config/{profile}/`. Add folders like `config/dev/`, `config/qa/` with overrides. See [CONFIGURATION.md](../CustomACEBaseWrapper/CONFIGURATION.md) in the framework for details.
 
 ### Run Specific Test Runner
 ```bash
@@ -146,9 +147,7 @@ Feature: Your Feature Name
   So that I can ensure quality
 
   Background:
-    Given I set the active database profile to "mysql"
-    And I have a database connection named "mydb" using profile "mysql"
-    And I connect to the database "mydb"
+    Given I connect to database "mysql"
 
   @DB @YourTag
   Scenario: Your test scenario
@@ -162,9 +161,8 @@ All step definitions are provided by the `custom-ace-base-wrapper` library. Avai
 
 #### Connection Steps
 ```gherkin
-Given I have a database connection named "name" using profile "mysql"
-Given I set the active database profile to "mysql"
-Given I connect to the database "name"
+Given I connect to database "mysql"
+Given I connect to database "oracle" as "ora"
 When I disconnect from the database
 Then I should be connected to the database
 Then I should not be connected to the database
@@ -222,21 +220,23 @@ After running tests, reports are generated in:
 - **JSON Report**: `target/cucumber-reports/cucumber.json`
 - **JUnit XML**: `target/cucumber-reports/cucumber.xml`
 
-## Environment-Specific Configuration
+## Environment-Specific Configuration (Profile as Folder)
 
-### Development Environment
+### Development
 ```bash
-mvn test -Ddb.profile=dev-mysql
+mvn test -Dprofile=dev
+```
+Uses `config/dev/master_database.yml` and `config/dev/master.yaml`.
+
+### QA
+```bash
+mvn test -Dprofile=qa
 ```
 
-### Test Environment
+### Staging
+Create `config/staging/` with overrides, then:
 ```bash
-mvn test -Ddb.profile=test-mysql
-```
-
-### Staging Environment
-```bash
-mvn test -Ddb.profile=staging-mysql
+mvn test -Dprofile=staging
 ```
 
 ## Best Practices

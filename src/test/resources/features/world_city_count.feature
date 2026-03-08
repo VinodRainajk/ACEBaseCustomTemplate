@@ -1,12 +1,11 @@
-@DB @MySQL @World @Smoke
+@DB @Smoke
 Feature: World Database - City Count Verification
   As a QA Engineer
   I want to verify the city count in the world database
   So that I can ensure data integrity
 
   Background:
-    Given I set the active database profile to "mysql-world"
-    And I connect to database using the active profile
+    Given I connect to database "mysql-world"
 
   @CityCount @Positive
   Scenario: Count total number of cities in world database
