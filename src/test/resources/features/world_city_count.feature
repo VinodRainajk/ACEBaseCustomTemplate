@@ -1,4 +1,4 @@
-@DB @Smoke
+@DB @Smoke @all
 Feature: World Database - City Count Verification
   As a QA Engineer
   I want to verify the city count in the world database

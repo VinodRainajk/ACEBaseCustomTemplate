@@ -1,4 +1,4 @@
-/git @DB
+@DB @qa
 Feature: Cross-database data comparison
   Compare data between MySQL and Oracle using config names from YAML
   Config: master_database.yml + cross-db-database.yml (feature override) + sections (scenario override)

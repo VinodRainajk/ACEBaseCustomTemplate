@@ -1,5 +1,4 @@
-# config/qa/master_database.yml - QA profile overrides
-# Used when: mvn test -Dprofile=qa
+# config/qa/ - mvn test -Dprofile=qa
 
 mysql:
   url: jdbc:mysql://qa-db-host:3306/testdb

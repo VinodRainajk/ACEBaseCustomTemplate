@@ -19,7 +19,40 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cucumber.version>7.15.0</cucumber.version>
         <junit.version>5.9.3</junit.version>
+        <!-- Default profile when -Dprofile not passed (e.g. mvn clean test) -->
+        <profile>local</profile>
+        <!-- Fallback env.filter if no profile activates -->
+        <env.filter>((@all or @local) or @nonProd)</env.filter>
     </properties>
+
+    <profiles>
+        <!-- prod: only @all or @prod (excludes @nonProd) -->
+        <profile>
+            <id>env-prod</id>
+            <activation>
+                <property>
+                    <name>profile</name>
+                    <value>prod</value>
+                </property>
+            </activation>
+            <properties>
+                <env.filter>(@all or @prod)</env.filter>
+            </properties>
+        </profile>
+        <!-- nonprod: @all or @{profile} or @nonProd -->
+        <profile>
+            <id>env-nonprod</id>
+            <activation>
+                <property>
+                    <name>profile</name>
+                    <value>!prod</value>
+                </property>
+            </activation>
+            <properties>
+                <env.filter>((@all or @${profile}) or @nonProd)</env.filter>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <!-- Custom ACE Base Wrapper Library (contains step definitions and DB drivers) -->
@@ -44,7 +77,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JUnit Platform for Cucumber (test scope only) -->
+        <!-- JUnit Platform Suite - required for InterceptorRunnerTest (unified artifact per JUnit 5 best practice) -->
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-suite</artifactId>
@@ -98,11 +131,57 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Surefire Plugin for running tests -->
+            <!-- Maven Surefire Plugin - 3 executions for DB/API/UI with env-based tag filtering -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>default-test</id>
+                        <configuration><skip>true</skip></configuration>
+                    </execution>
+                    <execution>
+                        <id>db-tests</id>
+                        <phase>test</phase>
+                        <goals><goal>test</goal></goals>
+                        <configuration>
+                            <includes><include>**/RunDBTests.java</include></includes>
+                            <excludes><exclude>**/InterceptorRunnerTest.java</exclude></excludes>
+                            <systemPropertyVariables>
+                                <profile>${profile}</profile>
+                                <db.profile>${db.profile}</db.profile>
+                                <cucumber.filter.tags>@DB and (${env.filter})</cucumber.filter.tags>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>api-tests</id>
+                        <phase>test</phase>
+                        <goals><goal>test</goal></goals>
+                        <configuration>
+                            <includes><include>**/RunAPITests.java</include></includes>
+                            <excludes><exclude>**/InterceptorRunnerTest.java</exclude></excludes>
+                            <systemPropertyVariables>
+                                <profile>${profile}</profile>
+                                <cucumber.filter.tags>@API and (${env.filter})</cucumber.filter.tags>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>ui-tests</id>
+                        <phase>test</phase>
+                        <goals><goal>test</goal></goals>
+                        <configuration>
+                            <includes><include>**/RunUITests.java</include></includes>
+                            <excludes><exclude>**/InterceptorRunnerTest.java</exclude></excludes>
+                            <systemPropertyVariables>
+                                <profile>${profile}</profile>
+                                <cucumber.filter.tags>@UI and (${env.filter})</cucumber.filter.tags>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </execution>
+                </executions>
                 <configuration>
                     <systemPropertyVariables>
                         <profile>${profile}</profile>

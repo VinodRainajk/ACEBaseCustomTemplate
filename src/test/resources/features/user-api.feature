@@ -1,4 +1,4 @@
-@API @Smoke
+@API @Smoke @all
 Feature: User API - Sample API tests with config and payloads
   As a QA Engineer
   I want to test the User API endpoints

@@ -1,0 +1,11 @@
+# config/staging/ - mvn test -Dprofile=staging
+
+mysql:
+  url: jdbc:mysql://staging-db-host:3306/testdb
+  username: staging_user
+  password: staging_pass
+
+mysql-world:
+  url: jdbc:mysql://staging-db-host:3306/world
+  username: staging_user
+  password: staging_pass

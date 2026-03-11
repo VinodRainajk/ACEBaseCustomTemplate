@@ -1,4 +1,4 @@
-@API @Smoke
+@API @Smoke @all
 Feature: API Sample - Placeholder for API tests
   As a QA Engineer
   I want to verify API endpoints

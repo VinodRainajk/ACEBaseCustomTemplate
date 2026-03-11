@@ -1,5 +1,5 @@
-# master_database.yml - Base database configurations (Level 1)
-# Referenced in steps: I connect to database "mysql-world"
+# config/local/ - Default profile (used when no -Dprofile)
+# mvn test  or  mvn test -Dprofile=local
 
 mysql:
   type: mysql

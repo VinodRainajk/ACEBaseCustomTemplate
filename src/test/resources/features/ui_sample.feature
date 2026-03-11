@@ -1,4 +1,4 @@
-@UI @Smoke
+@UI @Smoke @all
 Feature: UI Sample - Placeholder for UI tests
   As a QA Engineer
   I want to verify UI functionality

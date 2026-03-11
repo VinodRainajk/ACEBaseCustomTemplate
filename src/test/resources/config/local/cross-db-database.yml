@@ -1,4 +1,4 @@
-# cross-db-database.yml - Feature-specific overrides for cross-db.feature
+# config/local/ - cross-db.feature overrides
 
 mysql:
   url: jdbc:mysql://localhost:3306/userdb

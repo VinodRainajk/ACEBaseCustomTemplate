@@ -1,0 +1,8 @@
+mysql:
+  url: jdbc:mysql://qa-db-host:3306/userdb
+  username: qa_user
+
+oracle:
+  url: jdbc:oracle:thin:@qa-db-host:1521:orcl
+  username: qa_user
+  password: qa_pass
