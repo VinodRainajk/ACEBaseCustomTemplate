@@ -1,0 +1,14 @@
+# SQL for world_city_count.feature — referenced by key paths in Gherkin
+# Use two-step: When I set the SQL statement from feature payload "queries.xyz" / And I execute the query
+
+queries:
+  total_cities: "SELECT COUNT(*) as city_count FROM city"
+  count_cities: "SELECT COUNT(*) as city_count FROM city"
+  usa_cities: "SELECT COUNT(*) as usa_cities FROM city WHERE CountryCode = 'USA'"
+  top_cities: "SELECT Name, Population FROM city ORDER BY Population DESC LIMIT 5"
+  large_cities: "SELECT COUNT(*) as large_cities FROM city WHERE Population > 1000000"
+
+prepared:
+  city_by_id:
+    query: "SELECT ID, Name, CountryCode, Population FROM city WHERE ID = ?"
+    parameters: ["1"]

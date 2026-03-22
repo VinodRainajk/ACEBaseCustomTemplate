@@ -15,7 +15,9 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "com.qa.framework.stepdefinitions.api")
+@ConfigurationParameter(
+        key = GLUE_PROPERTY_NAME,
+        value = "com.qa.framework.stepdefinitions.api,com.qa.framework.payload")
 @ConfigurationParameter(
     key = PLUGIN_PROPERTY_NAME,
     value = "pretty, " +

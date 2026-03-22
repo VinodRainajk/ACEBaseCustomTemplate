@@ -1,0 +1,17 @@
+# user-api.feature -> user-api_payload.yml
+# Paths and bodies for all API scenarios in user-api.feature
+
+paths:
+  users: /users
+  user_by_id: /users/1
+  posts: /posts
+
+bodies:
+  create_user: |
+    {"name":"Test User","username":"testuser","email":"t@example.com"}
+  update_user: |
+    {"id":1,"name":"Updated User","username":"Bret","email":"Sincere@april.biz"}
+  patch_user: |
+    {"name":"Patched User"}
+  create_post: |
+    {"title":"foo","body":"bar","userId":1}

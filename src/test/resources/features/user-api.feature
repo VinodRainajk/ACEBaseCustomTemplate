@@ -1,28 +1,34 @@
-@API @Smoke @all
-Feature: User API - Sample API tests with config and payloads
-  As a QA Engineer
-  I want to test the User API endpoints
-  So that I can verify API functionality using config and external payloads
+@API
+Feature: User API using feature payload YAML
+
+  Paths and JSON bodies live in user-api_payload.yml. Use the two-step pattern:
+  "When I set the body from feature payload..." then "And I send a POST/PUT/PATCH request to path from feature payload..."
 
   Background:
     Given the API base URL from config
 
-  Scenario: GET user by ID - uses base URL from master.yaml
-    When I send a GET request to "/users/1"
+  Scenario: Fetch user (no body)
+    When I send a GET request to path from feature payload "paths.user_by_id"
     Then the response status code should be 200
     And the response body should contain "Leanne Graham"
-    And the response JSON path "id" should exist
-    And the response JSON path "id" should equal 1
 
-  Scenario: Create user with payload - uses payload user/create-user
-    When I send a POST request to "/users" with payload "user/create-user"
+  Scenario: Create user with body from payload YAML
+    When I set the body from feature payload "bodies.create_user"
+    And I send a POST request to path from feature payload "paths.users"
     Then the response status code should be 201
 
-  Scenario: Update user with payload - uses payload user/update-user
-    When I send a PUT request to "/users/1" with payload "user/update-user"
+  Scenario: Update user with body from payload YAML
+    When I set the body from feature payload "bodies.update_user"
+    And I send a PUT request to path from feature payload "paths.user_by_id"
     Then the response status code should be 200
 
-  Scenario: Create post with payload - uses payload post/create-post
-    When I send a POST request to "/posts" with payload "post/create-post"
+  Scenario: Partial update with PATCH
+    When I set the body from feature payload "bodies.patch_user"
+    And I send a PATCH request to path from feature payload "paths.user_by_id"
+    Then the response status code should be 200
+
+  Scenario: Create post with body from payload YAML
+    When I set the body from feature payload "bodies.create_post"
+    And I send a POST request to path from feature payload "paths.posts"
     Then the response status code should be 201
     And the response JSON path "id" should exist

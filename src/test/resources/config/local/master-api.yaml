@@ -1,6 +1,11 @@
 application:
   url: https://jsonplaceholder.typicode.com
   timeout: 30000
+
+paths:
+  posts: /posts
+  post_by_id: /posts/1
+
 auth:
   type: bearer
   token: ""

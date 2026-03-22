@@ -3,7 +3,7 @@ Feature: World Database - City Count Verification
   As a QA Engineer
   I want to verify the city count in the world database
   So that I can ensure data integrity
-
+g
   Background:
     Given I connect to database "mysql-world"
 
@@ -61,6 +61,37 @@ Feature: World Database - City Count Verification
     When I execute the query "SELECT COUNT(DISTINCT CountryCode) as country_count FROM city"
     Then the query should return 1 rows
     And the result set should contain a column "country_count"
+
+  @CityCount @PayloadDemo @TwoStep
+  Scenario: Count total cities using two-step feature payload
+    When I set the SQL statement from feature payload "queries.count_cities"
+    And I execute the query
+    Then the query should return 1 rows
+    And the result set should contain a column "city_count"
+
+  @CityCount @PayloadDemo @TwoStep
+  Scenario: Count total cities via total_cities key
+    When I set the SQL statement from feature payload "queries.total_cities"
+    And I execute the query
+    Then the query should return 1 rows
+    And the result set should contain a column "city_count"
+
+  @CityData @TwoStep @Prepared
+  Scenario: Retrieve city by ID using prepared statement from payload
+    When I set the prepared statement from feature payload "prepared.city_by_id"
+    And I execute the prepared query
+    Then the query should return 1 rows
+    And the result set should contain a column "ID"
+    And the result set should contain a column "Name"
+    And the result set should contain a column "Population"
+
+  @CityData @TopCities @TwoStep
+  Scenario: Retrieve top 5 cities using two-step payload
+    When I set the SQL statement from feature payload "queries.top_cities"
+    And I execute the query
+    Then the query should return 5 rows
+    And the result set should contain a column "Name"
+    And the result set should contain a column "Population"
 
   @Cleanup
   Scenario: Disconnect from database after tests
