@@ -7,6 +7,9 @@ paths:
   posts: /posts
 
 bodies:
+  # Same JSON as inline create_user, loaded from classpath api/user/create.json
+  create_user_from_file:
+    file: user/create.json
   create_user: |
     {"name":"Test User","username":"testuser","email":"t@example.com"}
   update_user: |

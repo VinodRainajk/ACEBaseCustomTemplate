@@ -1,0 +1,10 @@
+queries:
+  city_count: "SELECT COUNT(*) AS city_count FROM city"
+
+expected:
+  city_count_ordered:
+    root: csv
+    file: world/city_count_expected.csv
+  city_count_mismatch:
+    root: csv
+    file: world/city_count_mismatch.csv

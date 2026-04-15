@@ -1,0 +1,19 @@
+api:
+  application:
+    url: https://jsonplaceholder.typicode.com
+    timeout: 30000
+  auth:
+    type: none
+  paths:
+    users: /users
+    user_by_id: /users/1
+    posts: /posts
+
+db:
+  mysql-world:
+    type: mysql
+    url: jdbc:mysql://localhost:3306/world
+    username: dev
+    password: admin
+    driver: com.mysql.cj.jdbc.Driver
+    timeout: 30000

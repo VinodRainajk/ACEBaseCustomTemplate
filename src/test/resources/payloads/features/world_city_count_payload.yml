@@ -1,7 +1,10 @@
 # SQL for world_city_count.feature — referenced by key paths in Gherkin
 # Use two-step: When I set the SQL statement from feature payload "queries.xyz" / And I execute the query
+# Or one-step: When I execute the query "{queries.total_cities_file}" (loads from classpath sql/world/total_cities.sql)
 
 queries:
+  total_cities_file:
+    file: world/total_cities.sql
   total_cities: "SELECT COUNT(*) as city_count FROM city"
   count_cities: "SELECT COUNT(*) as city_count FROM city"
   usa_cities: "SELECT COUNT(*) as usa_cities FROM city WHERE CountryCode = 'USA'"

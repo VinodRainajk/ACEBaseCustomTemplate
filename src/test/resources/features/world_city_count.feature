@@ -3,13 +3,19 @@ Feature: World Database - City Count Verification
   As a QA Engineer
   I want to verify the city count in the world database
   So that I can ensure data integrity
-g
+
   Background:
     Given I connect to database "mysql-world"
 
   @CityCount @Positive
   Scenario: Count total number of cities in world database
     When I execute the query "SELECT COUNT(*) as city_count FROM city"
+    Then the query should return 1 rows
+    And the result set should contain a column "city_count"
+
+  @CityCount @FileRef
+  Scenario: Count total cities using SQL file referenced from feature payload YAML
+    When I execute the query "{queries.total_cities_file}"
     Then the query should return 1 rows
     And the result set should contain a column "city_count"
 

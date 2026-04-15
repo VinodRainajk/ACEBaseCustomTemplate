@@ -227,6 +227,8 @@
                                         <include>**/*.yaml</include>
                                         <include>**/*.yml</include>
                                         <include>**/*.json</include>
+                                        <include>**/*.csv</include>
+                                        <include>**/*.sql</include>
                                     </includes>
                                 </resource>
                             </resources>

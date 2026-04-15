@@ -1,0 +1,2 @@
+queries:
+  city_count: "SELECT COUNT(*) AS city_count FROM city"
